@@ -6,13 +6,11 @@ import sys
 if sys.platform == 'win32':
 	asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
 
-# colorama colors
 Fore.GREEN = Fore.GREEN
 Fore.RED = Fore.RED
 Fore.YELLOW = Fore.YELLOW
 Fore.RESET = Style.RESET_ALL
 
-# import webhook via file
 def import_from_file(file_path):
     try:
         with open(file_path, 'r') as file:
@@ -21,8 +19,7 @@ def import_from_file(file_path):
     except FileNotFoundError:
         print(Fore.RED + "File not found: " + file_path + Fore.RESET)
         return []
-
-# import webhook urls from copy/paste
+	    
 def import_from_copybook():
     webhook_urls = []
     while True:
@@ -48,7 +45,7 @@ async def main():
     choice = input("Choose an option:\n1. Import from file\n2. Import from copybook\nEnter your choice (1 or 2): ")
 
     if choice == "1":
-        file_path = r"C:\Users\zeo\Desktop\WebHookSpammer\name.txt"  # replace with the actual file path
+        file_path = r"C:\Users\zeo\Desktop\WebHookSpammer\name.txt" # YOUR_PATH
         webhook_urls = import_from_file(file_path)
     elif choice == "2":
         webhook_urls = import_from_copybook()
@@ -69,7 +66,6 @@ async def main():
                 task = asyncio.ensure_future(send_message(session, webhook_url, message))
                 tasks.append(task)
             await asyncio.gather(*tasks)
-            # Add a delay between each iteration to avoid overloading the server
             await asyncio.sleep(1)
 
 if __name__ == "__main__":
